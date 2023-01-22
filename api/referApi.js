@@ -29,7 +29,7 @@ router.get("/ReferEarn", async (req, res) => {
 	}
 })
 
-function generateReferralCode() {
+function generateReferralID() {
 	let code = "";
 	const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
@@ -43,14 +43,14 @@ function generateReferralCode() {
 // ReferEarn POST
 router.post(`/ReferEarn`, async (req, res) => {
 	try {
-		const code = generateReferralCode();
+		const code = generateReferralID();
 		const data = {
 
 			code: code,
 			date: req.body.date,
 			link: `/ReferEarn/${code}`,
 			user: req.body.user,
-			referedUser: req.body.referedUser,
+			// referedUser: req.body.referedUser,
 			rewards: req.body.rewards
 
 		};
@@ -98,19 +98,19 @@ router.delete("/ReferEarn/:id", async (req, res) => {
 
 
 // update something in a ReferEarn with id 
-router.patch("/ReferEarn/:id", async (req, res) => {
-	try {
-		const _id = req.params.id
-		let updateReferEarn = await ReferEarnModel.findOneAndUpdate(_id,
-			{ $push: { referedUser: req.body.referedUser } }, { new: true }
-		);
-		updateReferEarn = await ReferEarnModel.find({ id: _id }).catch((err) => { console.log('not workings' + err) });
-		res.send(updateReferEarn);
+// router.patch("/ReferEarn/:id", async (req, res) => {
+// 	try {
+// 		const _id = req.params.id
+// 		let updateReferEarn = await ReferEarnModel.findOneAndUpdate(_id,
+// 			{ $push: { referedUser: req.body.referedUser } }, { new: true }
+// 		);
+// 		updateReferEarn = await ReferEarnModel.find({ id: _id }).catch((err) => { console.log('not workings' + err) });
+// 		res.send(updateReferEarn);
 
-	} catch (err) {
-		res.status(404).send(err);
-	}
-})
+// 	} catch (err) {
+// 		res.status(404).send(err);
+// 	}
+// })
 
 
 module.exports = router

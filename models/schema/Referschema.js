@@ -1,39 +1,8 @@
 const mongoose = require("mongoose");
 
-// const user_Schema = mongoose.Schema(
-// 	{
-// 		userId: {
-// 			type: String
-// 			// type: mongoose.Schema.Types.ObjectId
-// 			, required: true,
-// 			unique: true
-// 		}
-
-// 	}
-// )
-
-// const referedUser_Schema = mongoose.Schema(
-// 	{
-// 		referedUserId: [{
-// 			type: mongoose.Schema.Types.ObjectId
-// 			,
-// 		}]
-
-// 	}
-// )
-
 const ReferEarn_Schema = mongoose.Schema(
 
 	{
-
-
-		code: {
-			type: String,
-			// unique: true,
-			// required: true,
-
-		},
-
 		date: {
 			type: Date,
 			required: true,
@@ -42,12 +11,20 @@ const ReferEarn_Schema = mongoose.Schema(
 		},
 		link: {
 			type: String,
-			// unique: true,
-			// required: true
+			required: true
 
 		},
-		user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-		referedUser: [{ type: mongoose.Schema.Types.Array, ref: 'User' }],
+		user: {
+			type: mongoose.Schema.Types.ObjectId,
+			unique: true,
+			ref: 'User',
+		},
+		code: {
+			type: String,
+			required: true,
+
+		},
+		// referedUser: [{ type: mongoose.Schema.Types.Array, ref: 'User' }],
 		rewards: [{
 			rewardName: { type: String },
 			rewardPoints: { type: Number },
